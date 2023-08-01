@@ -101,12 +101,11 @@ def user_login(request):
 
 
 def blog_list(request):
-    blog_posts = blogs.objects.all().order_by('-post_date')  # Order the posts by the most recent first
-    print(blog_posts.query)
+    blog_posts2 = blogs.objects.all().order_by('-post_date')  # Order the posts by the most recent first
     # Number of blogs to display per page
     items_per_page = 9
 
-    paginator = Paginator(blog_posts, items_per_page)
+    paginator = Paginator(blog_posts2, items_per_page)
     page_number = request.GET.get('page')
 
     try:
