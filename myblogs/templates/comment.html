@@ -1,0 +1,26 @@
+<!-- comment_form.html -->
+<form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="comment_text">Add Your Comment:</label>
+        <input type="text" class="form-control" id="comment_text" name="comment_text" rows="4" required></input>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit Comment</button>
+</form>
+
+{% if not user.is_authenticated %}
+    <p>Log in to submit a comment</p>
+    <a href="{% url 'blogs:user_login' %}">Login</a>
+{% endif %}
+
+<!-- Display existing comments -->
+{% if comments %}
+    <h2>Comments:</h2>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.comment_text }} - {{ comment.user.username }} ({{ comment.created_at }})</li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p></p>
+{% endif %}

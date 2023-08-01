@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="bioInput">Bio:</label>
+                <textarea class="form-control" name="bio" id="bioInput">{{ form.bio }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="profilePictureInput">Profile Picture:</label>
+                <input type="file" class="form-control-file" name="profile_picture" id="profilePictureInput">
+                {% if user_profile.profile_picture %}
+                    <img src="{{ user_profile.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail mt-2" style="max-width: 200px;">
+                {% else %}
+                    <p>No profile picture uploaded yet.</p>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="btn btn-primary">Save Profile</button>
+            <p>Do you want to change password? <a href="{% url 'user:resetpassword' %}">Change Password</a></p>
+
+        </form>
+    </div>
+
+    <!-- Add Bootstrap JS and jQuery (optional) links -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
